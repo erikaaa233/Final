@@ -1,7 +1,8 @@
 ---
 title: "FORECASTING THE 2019 CANADIAN FEDERAL ELECTION IF EVERYONE HAD VOTED"
 author: "Jiayi YANG"
-date: "2020/12/10"
+date: "December 22, 2020"
+bibliography: references.bib
 output: pdf_document
 fontsize: 12pt
 sansfont: Calibri Light
@@ -17,9 +18,14 @@ abstract: |
   
   **Keywords:** Public Opinion; 2019 Canadian Federal Election; Bayesian Approach; Multilevel Regression with Poststratification
 ---
+```{r setup, include=FALSE}
+#Import libraries
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
 
+```
 # 1 Introduction
-The 2019 Canadian Federal Election was hold on October 21, 2019. It was in order to elect members of the House of Commons to the 43rd Canadian Parliament. As a result, the leader of the Liberal Party, Justin Trudeau, won 184 seats finally and continued to be the Prime Minister of Canada. Although Justin Trudeau received 39.4% of the last election, it is worth noting that in the previous national Popular vote he only received less than 35%. The Liberals have the lowest national support among all the parties. So, we wondered if all the Canadian citizens with age over 18 could vote in the last election, how would the results of the election change. In this study, we attempt to determine the possibility that Justin Trudeau would still be elected when the eligible voters were expanded to be all the Canadian citizens who meet the requirements.
+The 2019 Canadian Federal Election was hold on October 21, 2019. It was in order to elect members of the House of Commons to the 43rd Canadian Parliament. As a result, the leader of the Liberal Party, Justin Trudeau, won 184 seats finally and continued to be the Prime Minister of Canada @2019Canadianfederalelection. Although Justin Trudeau received 39.4% of the last election, it is worth noting that in the previous national Popular vote he only received less than 35% @2019Canadianfederalelection. The Liberals have the lowest national support among all the parties. So, we wondered if all the Canadian citizens with age over 18 could vote in the last election, how would the results of the election change. In this study, we attempt to determine the possibility that Justin Trudeau would still be elected when the eligible voters were expanded to be all the Canadian citizens who meet the requirements.
 
 To accomplish this goal, we do analysis based on the data from Canadian Election Survey (CES) and Stat Canada 2016 Education Census. We will firstly build a logistic regression by Bayesian approach. And then, we will also utilize the multilevel regression model with post-stratification. We analyzed individual-level survey data and post-stratified census data to analyze the effects caused by key demographic variables on the voting decision and predict the probability of Justin Trudeau still winning the election. Our prediction suggests that, as the voter has been expanded to all the citizen, the probability that Trudeau will still be elected is x%.
 
@@ -29,18 +35,70 @@ In section two, we present the datasets we analysis. It includes the source and 
 \pagebreak
 
 # 2 Data
+```{r setup, include=FALSE}
+###Survey data###
+#call2019 CES online survey
+get_ces("ces2019_web")
 
-## 2.1 Display CES data
+#convert values to factor type
+ces2019_web <- to_factor(ces2019_web)
+head(ces2019_web)
 
-aaa
+#Just keep some of the variables
+select_data <- ces2019_web %>% select(cps19_gender, cps19_province, 
+                                cps19_education, cps19_votechoice, 
+                                cps19_citizenship)
+#filter only on the people who are candian citizen
+filter_data <- select_data %>% filter(cps19_citizenship =="Canadian citizen")
 
-## 2.2 Display Stat Canada 2016 Eduaction Census dataset
+#Drop NAs(31564 out of 36480, 86% data kept)
+survey_data <- na.omit(filter_data)
 
-bbb
 
-## 2.3 Methodology
+###Census data###
+census_data <- read_csv("gss.csv")
+```
 
-ccc
+## 2.1 CES Survey Data
+
+```{r genderplot, echo=FALSE}
+## data manipulation
+survey_data <- survey_data %>% mutate(
+  cps19_gender = case_when( 
+  cps19_gender=="A woman"~"Female",
+  cps19_gender=="A man"~"Male",
+  cps19_gender=="Other (e.g. Trans, non-binary, two-spirit, gender-queer)"~"Others"))
+
+#Make graph comparing voting habits of male and female
+gender_vote<-table(survey_data$cps19_votechoice, survey_data$cps19_gender)
+barplot(gender_vote, cex.names = 0.5, beside=TRUE, main="Figure 1. The Preference of Voting in 2019 By Gender", xlab= "Gender", col = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"))
+legend("topleft", legend= c("Green Party ", "Liberal Party", "Conservative Party", "ndp", "Bloc Québécois", "People's Party", "Another party (please specify)", "Don't know/ Prefer not to answer"), fill = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"))
+```
+The trend shows that the CES data demonstrates that female more likely tend to vote for the Liberal Party. And the majority of male voters would probability planned to vote the xxx party.
+
+
+```{r education, echo= FALSE}
+edu <-table(survey_data$cps19_votechoice, survey_data$cps19_education)
+barplot(gender_vote, cex.names = 0.5, beside=TRUE, main="Figure 2. The Preference of Voting in 2019 By Education", xlab= "Education")
+```
+For education level of respondent, it did not show a relationship with voting intentions for the 2019 Canadian Federal election. Across all education levels queried in the survey, an association with either candidate did not exist.  
+
+```{r province, echo= FALSE}
+edu <-table(survey_data$cps19_votechoice, survey_data$cps19_province)
+barplot(gender_vote, cex.names = 0.5, beside=TRUE, main="Figure 2. The Preference of Voting in 2019 By Province", xlab= "Education")
+```
+
+
+## 2.2 GSS Census Data
+As we want to correctly estimate the election result when all the Canadian citizens could participate to vote, we used post-stratification via adjusting the weights between groups by using an additional dataset.
+The census data we used was the 2017 General Social Survey (GSS) on the family. It is a nationwide survey which was designed to social-demographic variables of Canadians and capture social-social demographic and social-economic trends.Its target population includes all non-institutionalized person with age over 15, living in the 10 chosen provinces inside Canada. So, it could be a reliable census data which support to be a study population. However, the sample size for this database is really small which only has around 4894 observations.
+```{r setup, include=FALSE}
+#Just keep some of the variables
+census_data <- census_data %>% select(sex, province, 
+                                education)
+census_data <- na.omit(census_data)
+```
+
 
 \pagebreak
 
@@ -49,7 +107,6 @@ ccc
 ddd
 
 ## 3.2 Multilevel regression with post-stratification (MRP)
-
 eeee
 
 \pagebreak
@@ -73,7 +130,6 @@ iiii
 # Appendix
 
 All code used to generate this results can be found here: 
-
-https//..a
+https://github.com/erikaaa233/Final
 
 # References
