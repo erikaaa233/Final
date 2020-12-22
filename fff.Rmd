@@ -1,5 +1,5 @@
 ---
-title: "FORECASTING THE 2019 CANADIAN FEDERAL ELECTION IF EVERYONE HAD VOTED"
+title: "THE LIBERAL PARTY WILL NOT WIN IN THE 2019 CANADIAN FEDERAL ELECTION ANYMORE IF EVERYONE HAD VOTED"
 author: "Jiayi YANG"
 date: "December 22, 2020"
 bibliography: references.bib
@@ -29,7 +29,7 @@ library(knitr)
 # 1 Introduction
 The 2019 Canadian Federal Election was hold on October 21, 2019. It was in order to elect members of the House of Commons to the 43rd Canadian Parliament. As a result, the leader of the Liberal Party, Justin Trudeau, won 184 seats finally and continued to be the Prime Minister of Canada @2019Canadianfederalelection. Although Justin Trudeau received 39.4% of the last election, it is worth noting that in the previous national Popular vote he only received less than 35% @2019Canadianfederalelection. The Liberals have the lowest national support among all the parties. So, we wondered if all the Canadian citizens with age over 18 could vote in the last election, how would the results of the election change. In this study, we attempt to determine the possibility that Justin Trudeau would still be elected when the eligible voters were expanded to be all the Canadian citizens who meet the requirements.
 
-To accomplish this goal, we do analysis based on the data from Canadian Election Survey (CES) and Stat Canada 2016 Education Census. We will firstly build a logistic regression by Bayesian approach. And then, we will also utilize the multilevel regression model with post-stratification. We analyzed individual-level survey data and post-stratified census data to analyze the effects caused by key demographic variables on the voting decision and predict the probability of Justin Trudeau still winning the election. Our prediction suggests that, as the voter has been expanded to all the citizen, the probability that Trudeau will still be elected is x%.
+To accomplish this goal, we do analysis based on the data from Canadian Election Survey (CES) and Stat Canada 2016 Education Census. We will firstly build a logistic regression by Bayesian approach. And then, we will also utilize the multilevel regression model with post-stratification. We analyzed individual-level survey data and post-stratified census data to analyze the effects caused by key demographic variables on the voting decision and predict the probability of Justin Trudeau still winning the election. Our prediction suggests that, as the voter has been expanded to all the citizen, Trudeau will probabily not be elected any more.
 
 In section two, we present the datasets we analysis. It includes the source and the summary of these two datasets, we also interpret the meaning of them. In section three, we show the models we built, and use AIC method choose the best prediction model out of them. Followed by this, in section four, we describe and conclude the result we find by the model. Finally, in section five, we give a conclusion of our study and do discussion on the weakness of our study and consider what else can we do to improve this study. 
 
