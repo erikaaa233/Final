@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(cesR)
 library(labelled)
 library(tidyverse)
+library(knitr)
 ```
 # 1 Introduction
 The 2019 Canadian Federal Election was hold on October 21, 2019. It was in order to elect members of the House of Commons to the 43rd Canadian Parliament. As a result, the leader of the Liberal Party, Justin Trudeau, won 184 seats finally and continued to be the Prime Minister of Canada @2019Canadianfederalelection. Although Justin Trudeau received 39.4% of the last election, it is worth noting that in the previous national Popular vote he only received less than 35% @2019Canadianfederalelection. The Liberals have the lowest national support among all the parties. So, we wondered if all the Canadian citizens with age over 18 could vote in the last election, how would the results of the election change. In this study, we attempt to determine the possibility that Justin Trudeau would still be elected when the eligible voters were expanded to be all the Canadian citizens who meet the requirements.
