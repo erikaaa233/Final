@@ -135,5 +135,9 @@ In the next step, we will..
 
 All code used to generate this results can be found here: 
 https://github.com/erikaaa233/Final
+@citetidyverse
+@citeR
+@citeggplot2
+@CES
 
 # References
