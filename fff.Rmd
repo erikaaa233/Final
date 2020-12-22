@@ -127,7 +127,7 @@ In conclusion, the result we find is .
 
 
 ## 5.3 Next step
-In the next step, we will..
+In the next step, we will.
 
 \pagebreak
 
