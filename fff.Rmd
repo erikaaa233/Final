@@ -105,7 +105,7 @@ census_data <- na.omit(census_data)
 
 # 3 Model Development
 ## 3.1 Logistic regression model using Bayesian approach
-ddd
+dd
 
 ## 3.2 Multilevel regression with post-stratification (MRP)
 
