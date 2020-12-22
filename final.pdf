@@ -1,0 +1,116 @@
+---
+title: "FORECASTING THE 2019 CANADIAN FEDERAL ELECTION IF EVERYONE HAD VOTED"
+author: "Jiayi YANG"
+date: "December 22, 2020"
+bibliography: references.bib
+output: pdf_document
+fontsize: 12pt
+sansfont: Calibri Light
+abstract: |
+  In this paper, we aim to forecast the result 2019 Canadian Federal election if 
+  everyone participated in the vote.In order to achieve the goal, we firstly 
+  develop a logistic regression model using the data given by Canadian Election 
+  Survey(CES). To improve the precision on prediciton, we then use Multilevel 
+  regression with postratification (MRP) using the observations from Stat Canada 
+  2016 Education Census. The result suggests that some social-demographic 
+  variables have large impacts on individual choicses in the Canadian Federal 
+  Election.
+  
+  **Keywords:** Public Opinion; 2019 Canadian Federal Election; Bayesian Approach; Multilevel Regression with Poststratification
+---
+```{r setup, include=FALSE}
+#Import libraries
+knitr::opts_chunk$set(echo = TRUE)
+library(cesR)
+library(labelled)
+library(tidyverse)
+library(knitr)
+```
+# 1 Introduction
+The 2019 Canadian Federal Election was hold on October 21, 2019. It was in order to elect members of the House of Commons to the 43rd Canadian Parliament. As a result, the leader of the Liberal Party, Justin Trudeau, won 184 seats finally and continued to be the Prime Minister of Canada @2019Canadianfederalelection. Although Justin Trudeau received 39.4% of the last election, it is worth noting that in the previous national Popular vote he only received less than 35% @2019Canadianfederalelection. The Liberals have the lowest national support among all the parties. So, we wondered if all the Canadian citizens with age over 18 could vote in the last election, how would the results of the election change. In this study, we attempt to determine the possibility that Justin Trudeau would still be elected when the eligible voters were expanded to be all the Canadian citizens who meet the requirements.
+
+To accomplish this goal, we do analysis based on the data from Canadian Election Survey (CES) and Stat Canada 2016 Education Census. We will firstly build a logistic regression by Bayesian approach. And then, we will also utilize the multilevel regression model with post-stratification. We analyzed individual-level survey data and post-stratified census data to analyze the effects caused by key demographic variables on the voting decision and predict the probability of Justin Trudeau still winning the election. Our prediction suggests that, as the voter has been expanded to all the citizen, the probability that Trudeau will still be elected is x%.
+
+In section two, we present the datasets we analysis. It includes the source and the summary of these two datasets, we also interpret the meaning of them. In section three, we show the models we built, and use AIC method choose the best prediction model out of them. Followed by this, in section four, we describe and conclude the result we find by the model. Finally, in section five, we give a conclusion of our study and do discussion on the weakness of our study and consider what else can we do to improve this study. 
+
+
+\pagebreak
+
+# 2 Data
+```{r, include=FALSE}
+###Survey data###
+#call2019 CES online survey
+get_ces("ces2019_web")
+
+#convert values to factor type
+ces2019_web <- to_factor(ces2019_web)
+head(ces2019_web)
+
+#Just keep some of the variables
+select_data <- ces2019_web %>% select(cps19_gender, cps19_province, 
+                                cps19_education, cps19_votechoice, 
+                                cps19_citizenship)
+#filter only on the people who are candian citizen
+filter_data <- select_data %>% filter(cps19_citizenship =="Canadian citizen")
+
+#Drop NAs(31564 out of 36480, 86% data kept)
+survey_data <- na.omit(filter_data)
+
+
+###Census data###
+census_data <- read_csv("gss.csv")
+```
+
+## 2.1 CES Survey Data
+
+
+The trend shows that the CES data demonstrates that female more likely tend to vote for the Liberal Party. And the majority of male voters would probability planned to vote the xxx party.
+
+
+For education level of respondent, it did not show a relationship with voting intentions for the 2019 Canadian Federal election. Across all education levels queried in the survey, an association with either candidate did not exist.  
+
+
+## 2.2 GSS Census Data
+As we want to correctly estimate the election result when all the Canadian citizens could participate to vote, we used post-stratification via adjusting the weights between groups by using an additional dataset.
+The census data we used was the 2017 General Social Survey (GSS) on the family. It is a nationwide survey which was designed to social-demographic variables of Canadians and capture social-social demographic and social-economic trends.Its target population includes all non-institutionalized person with age over 15, living in the 10 chosen provinces inside Canada. So, it could be a reliable census data which support to be a study population. However, the sample size for this database is really small which only has around 4894 observations.
+```{r, include=FALSE}
+#Just keep some of the variables
+census_data <- census_data %>% select(sex, province, 
+                                education)
+census_data <- na.omit(census_data)
+```
+
+
+\pagebreak
+
+# 3 Model Development
+## 3.1 Logistic regression model using Bayesian approach
+ddd
+
+## 3.2 Multilevel regression with post-stratification (MRP)
+eeee
+
+\pagebreak
+
+# 4 Results
+ffff
+
+\pagebreak
+
+# 5 Discussion
+## 5.1 Conclusion
+gg
+## 5.2 Weakness
+hhhh
+## 5.3 Next step
+iii
+
+
+\pagebreak
+
+# Appendix
+
+All code used to generate this results can be found here: 
+https://github.com/erikaaa233/Final
+
+# References
