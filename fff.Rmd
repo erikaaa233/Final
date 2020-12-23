@@ -82,7 +82,7 @@ The trend shows that the CES data demonstrates that female more likely tend to v
 edu <-table(survey_data$cps19_votechoice, survey_data$cps19_education)
 barplot(edu, cex.names = 0.5, beside=TRUE, main="Figure 2. The Preference of Voting in 2019 By Education", xlab= "Education", col = c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7"))
 ```
-For education level of respondent, it did not show a relationship with voting intentions for the 2019 Canadian Federal election. Across all education levels, the Liberal party do not have the most number of voting.  
+For education level of respondent, it did not show a distinct relationship with voting preference for the 2019 Canadian Federal election. Across all education levels, the Liberal party do not have the most number of voting.  
 
 ```{r province, echo= FALSE}
 pro <-table(survey_data$cps19_votechoice, survey_data$cps19_province)
@@ -92,7 +92,7 @@ Similar to education, there is no apparent pattern. The Green Party holds the mo
 
 ## 2.2 GSS Census Data
 As we want to correctly estimate the election result when all the Canadian citizens could participate to vote, we used post-stratification via adjusting the weights between groups by using an additional dataset.
-The census data we used was the 2017 General Social Survey (GSS) on the family. It is a nationwide survey which was designed to social-demographic variables of Canadians and capture social-social demographic and social-economic trends.Its target population includes all non-institutionalized person with age over 15, living in the 10 chosen provinces inside Canada. So, it could be a reliable census data which support to be a study population. However, the sample size for this database is really small which only has around 4894 observations.
+The census data we used was the 2017 General Social Survey (GSS) on the family. It is a nationwide survey which was designed to social-demographic variables of Canadians and capture social-social demographic and social-economic trends.Its target population includes all non-institutionalized person with age over 15, living in the 10 chosen provinces inside Canada @PS3. So, it could be a reliable census data which support to be a study population. However, the sample size for this database is really small which only has around 4894 observations.
 ```{r census, include=FALSE}
 #Just keep some of the variables
 census_data <- census_data %>% select(sex, province, 
